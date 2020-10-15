@@ -25,11 +25,7 @@ class HeapTests: XCTestCase {
     
     func testThatAHeapTakesAnArrayAsAnInput() {
         let input = [1]
-        let heap = Heap(input)
-        let output = heap.baseArray.count
-        let expected = 1
-        
-        XCTAssertEqual(output, expected)
+        let _ = Heap(input)
     }
     
     func testThatAHeapHasARootNode() throws {
@@ -57,5 +53,34 @@ class HeapTests: XCTestCase {
         let expected = 99
         XCTAssertEqual(output, expected)
     }
+    
+    func testThatICanFindTheParentInALargerArray() throws {
+        let input = [17,15,21,3,4,5,6]
+        let heap = Heap(input)
+        let output = heap.getParent(5)
+        let expected = 21
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapCanReturnLeftChild() throws {
+        let input = [1,2,3]
+        let heap = Heap(input)
+        let output = heap.getLeft(0)
+        let expected = 2
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapWillReturnTheProperLeftChildWithALargerInputValue() {
+        let input = [99,3,78,34,52,2,123]
+        let heap = Heap(input)
+        let output = heap.getLeft(2)
+        let expected = 2
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    
 
 }

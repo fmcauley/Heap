@@ -17,7 +17,7 @@ import Foundation
 
 class Heap {
     
-    let baseArray : [Int]
+    private let baseArray : [Int]
     
     init(_ baseArray: [Int]) {
         self.baseArray = baseArray
@@ -27,6 +27,13 @@ class Heap {
     // A heap has a parent at [i/2]
     func getParent(_ index: Int) -> Int {
         let indexValue = index/2
+        return self.baseArray[indexValue]
+    }
+    
+    // left = 2n + 1 where n is an index value of an array
+    
+    func getLeft(_ index: Int) -> Int {
+        let indexValue = (2*index) + 1
         return self.baseArray[indexValue]
     }
 }
