@@ -81,6 +81,22 @@ class HeapTests: XCTestCase {
         XCTAssertEqual(output, expected)
     }
     
+    func testThatHeapCanReturnTheRightSideChild() {
+        let input = [3,1,2]
+        let heap = Heap(input)
+        let output = heap.getRight(0)
+        let expected = 2
+        
+        XCTAssertEqual(output, expected)
+    }
     
+    func testThatTheHeapWillFindARightChildWithABitShift() {
+        let input = [45,67,4,77,123,53,78,97,67]
+        let heap = Heap(input)
+        let output = heap.getRight(3)
+        let expected = 67
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }

@@ -25,15 +25,21 @@ class Heap {
     
     // lets build out an interface for an abstract type: Heap
     // A heap has a parent at [i/2]
+    //1) Parent [i/2] can be computed by shifting i right one bit position
     func getParent(_ index: Int) -> Int {
-        let indexValue = index/2
-        return self.baseArray[indexValue]
+        return self.baseArray[index >> 1]
     }
     
     // left = 2n + 1 where n is an index value of an array
     
     func getLeft(_ index: Int) -> Int {
-        let indexValue = (2*index) + 1
+        let indexValue = (index << 1) + 1
+        return self.baseArray[indexValue]
+    }
+    
+    // right = 2n + 2 where n in an index value of an array
+    func getRight(_ index: Int) -> Int {
+        let indexValue = (index << 1) + 2
         return self.baseArray[indexValue]
     }
 }
