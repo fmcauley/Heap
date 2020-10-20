@@ -233,5 +233,14 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    func testThatAHeapCanMaxHeapify() {
+        let heap = Heap([42,40,38,49,17,12])
+        heap.maxHeapify(1)
+        let output = heap.getLeft(0)
+        let expected = 49
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }

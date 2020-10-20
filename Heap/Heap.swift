@@ -187,4 +187,27 @@ class Heap {
         }
         print(baseArray)
     }
+    
+    func maxHeapify(_ index: Int) {
+        // fix the force unwrap
+        let left = getLeftIndex(forPosition: index)
+        let right = getRightIndex(forPosition: index)
+        
+        var largest = -1
+        
+        if left != nil && left! <= baseArray.count && baseArray[left!] > baseArray[index]{
+            largest = left!
+        } else {
+            largest = index
+        }
+        
+        if right != nil && right! <= baseArray.count && baseArray[right!] > baseArray[largest] {
+            largest = right!
+        }
+        if largest != index {
+            baseArray.swapAt(largest, index)
+            maxHeapify(largest)
+        }
+        print(baseArray)
+    }
 }
