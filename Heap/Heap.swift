@@ -44,14 +44,21 @@ class Heap {
     
     // left = 2n + 1 where n is an index value of an array
     
-    func getLeft(_ index: Int) -> Int {
+    func getLeft(_ index: Int) -> Int? {
         let indexValue = (index << 1) + 1
+        if indexValue > self.baseArray.count {
+            return nil
+        }
         return self.baseArray[indexValue]
     }
     
     // right = 2n + 2 where n in an index value of an array
-    func getRight(_ index: Int) -> Int {
+    func getRight(_ index: Int) -> Int? {
+        
         let indexValue = (index << 1) + 2
+        if indexValue > self.baseArray.count {
+            return nil
+        }
         return self.baseArray[indexValue]
     }
     
@@ -64,11 +71,23 @@ class Heap {
         return ((index - 1) >> 1)
     }
     
-    func getLeftIndex(forPosition index: Int) -> Int {
+    func getLeftIndex(forPosition index: Int) -> Int? {
+        if ((index << 1) + 1) > baseArray.count {
+            return nil
+        }
+        if baseArray.count < 2 {
+            return 0
+        }
         return (index << 1) + 1
     }
     
-    func getRightIndex(forPosition index: Int) -> Int {
+    func getRightIndex(forPosition index: Int) -> Int? {
+        if ((index << 1) + 2) > baseArray.count {
+            return nil
+        }
+        if baseArray.count < 2 {
+            return 0
+        }
         return (index << 1) + 2
     }
     
@@ -79,7 +98,8 @@ class Heap {
         var newNodeIndex = self.baseArray.count - 1
         
         while newNodeIndex > 0
-                && baseArray[newNodeIndex] > baseArray[getParentIndex(forPosition: newNodeIndex)] {
+                && baseArray[newNodeIndex] >
+                baseArray[getParentIndex(forPosition: newNodeIndex)] {
             
             baseArray.swapAt(newNodeIndex, getParentIndex(forPosition: newNodeIndex))
             newNodeIndex = getParentIndex(forPosition: newNodeIndex)
@@ -87,4 +107,84 @@ class Heap {
     }
     
     // need to add functions that Maxify and Minify a heap given an unordered input array
+    
+    func delete() {
+        // should this function return the value?
+        // Or do I need a priority Queue delete that returns out the value
+        // then reorders the heap?
+        self.baseArray.remove(at: 0)
+        //set the right most leaf to the head
+        if let last = baseArray.popLast(){
+            baseArray.insert(last, at: 0)
+        }
+        
+        // track the node to reposition
+        var trackingNodeIndex = 0
+        
+        while hasLargerChild(trackingNodeIndex) {
+            let largestChildIndex = getLargestChild(trackingNodeIndex)
+            
+            //swap
+            baseArray.swapAt(trackingNodeIndex, largestChildIndex)
+            
+            //update the tracking node index
+            trackingNodeIndex = largestChildIndex
+        }
+    }
+    
+    //NOTE need to handle the case for optionals.
+    //There may be situations where the value asked for is beyond the index
+    
+    private func hasLargerChild(_ index: Int) -> Bool {
+        // need check if there is a left and right and if
+        // either left or right is greater
+        var leftValue = -1
+        if let leftIndex = getLeftIndex(forPosition: index){
+            leftValue = baseArray[leftIndex]
+        }
+        
+        var rightValue = -1
+        if let rightIndex = getRightIndex(forPosition: index) {
+            rightValue = baseArray[rightIndex]
+        }
+        
+        if  leftValue > baseArray[index] || rightValue > baseArray[index]{
+            return true
+        }
+        
+        
+        return false
+    }
+    
+    private func getLargestChild(_ index: Int) -> Int {
+        if getRight(index) == nil {
+            if let left = getLeft(index) {
+                return left
+            }
+        }
+        
+        var leftIndex = -1
+        if let leftI = getLeftIndex(forPosition: index){
+            leftIndex = leftI
+        }
+        
+        var rightIndex = -1
+        if let rightI = getRightIndex(forPosition: index) {
+            rightIndex = rightI
+        }
+        
+        if baseArray[rightIndex] > baseArray[leftIndex] {
+            return rightIndex
+        } else {
+            return leftIndex
+        }
+    }
+    
+    //Maxify an input array into a Max head 
+    func maxify(_ input: [Int]) {
+        for x in input {
+            insert(x)
+        }
+        print(baseArray)
+    }
 }

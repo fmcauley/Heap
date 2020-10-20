@@ -194,5 +194,44 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    func testThatHeapCanDeleteAValue() {
+        let input = [42,15]
+        let heap = Heap(input)
+        //delete will always
+        heap.delete()
+        let output = heap.getParent(0)
+        let expected = 15
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapCanDeleteAndMaintainProperOrder() {
+        let input = [42,40,38,29,17,12]
+        let heap = Heap(input)
+        heap.delete()
+        let output = heap.getLeft(0)
+        let expected = 29
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatAHeapCanMaxifyAnOrderedArray() {
+        let heap = Heap([])
+        heap.maxify([1,2,3])
+        let output = heap.getParent(0)
+        let expected = 3
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatAHeapCanMaxifyALargerUnorderedArray() {
+        let heap = Heap([])
+        heap.maxify([1,2,3,4,5,6,7,8,9,10])
+        let output = heap.getParent(0)
+        let expected = 10
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }
