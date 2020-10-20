@@ -17,7 +17,7 @@ import Foundation
 
 class Heap {
     
-    private let baseArray : [Int]
+    private var baseArray : [Int]
     
     init(_ baseArray: [Int]) {
         self.baseArray = baseArray
@@ -71,4 +71,20 @@ class Heap {
     func getRightIndex(forPosition index: Int) -> Int {
         return (index << 1) + 2
     }
+    
+    // insert a new value into the heap
+    func insert(_ value: Int) {
+        self.baseArray.append(value)
+        
+        var newNodeIndex = self.baseArray.count - 1
+        
+        while newNodeIndex > 0
+                && baseArray[newNodeIndex] > baseArray[getParentIndex(forPosition: newNodeIndex)] {
+            
+            baseArray.swapAt(newNodeIndex, getParentIndex(forPosition: newNodeIndex))
+            newNodeIndex = getParentIndex(forPosition: newNodeIndex)
+        }
+    }
+    
+    // need to add functions that Maxify and Minify a heap given an unordered input array
 }

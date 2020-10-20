@@ -154,5 +154,45 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    func testThatAHeapCanInsertAValue() {
+        let input:[Int] = []
+        let heap = Heap(input)
+        heap.insert(42)
+        let output = heap.getParent(0)
+        let expected = 42
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatAHeapCanInsertAValueIntoHeap() {
+        let input = [100,90,80]
+        let heap = Heap(input)
+        heap.insert(70)
+        let output = heap.getLeft(1)
+        let expected = 70
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatAHeapCanInsertALargeValueThenTrickleItUp() {
+        let input = [100,90,80]
+        let heap = Heap(input)
+        heap.insert(170)
+        let output = heap.getParent(0)
+        let expected = 170
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatAHeapCanInsertAValueThatIsNotANewRoot() {
+        let input = [42,40,38,25,23,31]
+        let heap = Heap(input)
+        heap.insert(39)
+        let output = heap.getRight(0)
+        let expected = 39
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }
