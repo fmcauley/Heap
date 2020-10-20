@@ -36,7 +36,7 @@ class Heap {
         
         // right shift buy one acts are division by 2
         //00000010 = 2
-        //00000010 >> 1 == 00000001 = 1t
+        //00000010 >> 1 == 00000001 = 1
         
         let indexValue = ((index - 1) >> 1)
         return self.baseArray[indexValue]
@@ -53,5 +53,22 @@ class Heap {
     func getRight(_ index: Int) -> Int {
         let indexValue = (index << 1) + 2
         return self.baseArray[indexValue]
+    }
+    
+    // get index values for Parnet Left Child and Right Child
+    func getParentIndex(forPosition index: Int) -> Int {
+        
+        guard index > 0 else {
+            return 0
+        }
+        return ((index - 1) >> 1)
+    }
+    
+    func getLeftIndex(forPosition index: Int) -> Int {
+        return (index << 1) + 1
+    }
+    
+    func getRightIndex(forPosition index: Int) -> Int {
+        return (index << 1) + 2
     }
 }

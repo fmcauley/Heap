@@ -108,5 +108,51 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    // Tests that will return the index values for: Parent, Left, and Right
+    func testThatParentIndexForSingleElementHeapIsZero() {
+        let input = [1000]
+        let heap = Heap(input)
+        let output = heap.getParentIndex(forPosition: 0)
+        let expected = 0
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatParentIndexForLargerInputWorks() {
+        let input = [6,7,9,32,15,8,100,120,188]
+        let heap = Heap(input)
+        let output = heap.getParentIndex(forPosition:2)
+        let expected = 0
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatSomthingOtherThanRootWorks() {
+        let input = [6,7,9,32,15,8,100,120,188]
+        let heap = Heap(input)
+        let output = heap.getParentIndex(forPosition:8)
+        let expected = 3
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapCanReturnLeftIndexForAGivenPosition() {
+        let input = [5,43,3,56,4,78,88,9,900]
+        let heap = Heap(input)
+        let output = heap.getLeftIndex(forPosition:3)
+        let expected = 7
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapCanReturnRightIndexForAGivenPosition() {
+        let intput = [234,4,54,665,2,456,7,5,89]
+        let heap = Heap(intput)
+        let output = heap.getRightIndex(forPosition: 3)
+        let expected = 8
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }
