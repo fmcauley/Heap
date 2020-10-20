@@ -26,8 +26,20 @@ class Heap {
     // lets build out an interface for an abstract type: Heap
     // A heap has a parent at [i/2]
     //1) Parent [i/2] can be computed by shifting i right one bit position
+    //** [i/2/ only works for arrays that are 1 based not 0 based
+    // 0 based needs (n-1)/2
     func getParent(_ index: Int) -> Int {
-        return self.baseArray[index >> 1]
+        //the parent of root is root
+        guard index > 0 else {
+            return self.baseArray[0]
+        }
+        
+        // right shift buy one acts are division by 2
+        //00000010 = 2
+        //00000010 >> 1 == 00000001 = 1t
+        
+        let indexValue = ((index - 1) >> 1)
+        return self.baseArray[indexValue]
     }
     
     // left = 2n + 1 where n is an index value of an array

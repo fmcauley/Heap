@@ -98,5 +98,15 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    // More test that ensure bit shift works as expected:
+    func testThatParentBitShiftWorksInLargerSets() {
+        let input = [6,7,9,32,15,8,100,120,188]
+        let heap = Heap(input)
+        let output = heap.getParent(2)
+        let expected = 6
+        
+        XCTAssertEqual(output, expected)
+    }
 
 }
