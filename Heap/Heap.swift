@@ -185,8 +185,9 @@ class Heap {
         for x in input {
             insert(x)
         }
-        print(baseArray)
     }
+    
+    
     
     func maxHeapify(_ index: Int) {
         // fix the force unwrap
@@ -197,7 +198,7 @@ class Heap {
         let rightValue = getRight(index)
         
         
-        var largest = -1
+        var largest: Int
         
         if leftValue != nil && left! <= baseArray.count && baseArray[left!] > baseArray[index]{
             largest = left!
@@ -212,7 +213,6 @@ class Heap {
             baseArray.swapAt(largest, index)
             maxHeapify(largest)
         }
-        print(baseArray)
     }
     
     func buildMaxHeap() {
@@ -225,16 +225,14 @@ class Heap {
     
     var heapSortOutput = [Int]()
     
-    func heapSort() {
+    func heapSort() { //this works like delete...
         buildMaxHeap()
         var counter = baseArray.count - 1
         while counter >= 0 {
-            baseArray.swapAt(counter, 0)
+            baseArray.swapAt(counter, 0) // here
             heapSortOutput.append(baseArray.popLast()!)
             maxHeapify(0)
             counter -= 1
         }
-        print(baseArray)
-        print(heapSortOutput)
     }
 }

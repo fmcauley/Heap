@@ -257,10 +257,9 @@ class HeapTests: XCTestCase {
         let input = [1,2,3]
         let heap = Heap(input)
         heap.heapSort()
-        let output = heap.getParent(0)
-        let expected = 3
-        
-        XCTAssertEqual(output, expected)
+       
+        // heap sort will now remove the root and swap in the last leaf.
+        // there needs to be a return collection of values
     }
     
     func testThatHeapSortWorksWithALargerInputSet() {
