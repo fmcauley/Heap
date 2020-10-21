@@ -46,7 +46,7 @@ class Heap {
     
     func getLeft(_ index: Int) -> Int? {
         let indexValue = (index << 1) + 1
-        if indexValue > self.baseArray.count {
+        if indexValue > self.baseArray.count - 1 {
             return nil
         }
         return self.baseArray[indexValue]
@@ -56,7 +56,7 @@ class Heap {
     func getRight(_ index: Int) -> Int? {
         
         let indexValue = (index << 1) + 2
-        if indexValue > self.baseArray.count {
+        if indexValue > self.baseArray.count - 1 {
             return nil
         }
         return self.baseArray[indexValue]
@@ -193,15 +193,19 @@ class Heap {
         let left = getLeftIndex(forPosition: index)
         let right = getRightIndex(forPosition: index)
         
+        let leftValue = getLeft(index)
+        let rightValue = getRight(index)
+        
+        
         var largest = -1
         
-        if left != nil && left! <= baseArray.count && baseArray[left!] > baseArray[index]{
+        if leftValue != nil && left! <= baseArray.count && baseArray[left!] > baseArray[index]{
             largest = left!
         } else {
             largest = index
         }
         
-        if right != nil && right! <= baseArray.count && baseArray[right!] > baseArray[largest] {
+        if rightValue != nil && baseArray[right!] > baseArray[largest] {
             largest = right!
         }
         if largest != index {
@@ -209,5 +213,28 @@ class Heap {
             maxHeapify(largest)
         }
         print(baseArray)
+    }
+    
+    func buildMaxHeap() {
+        var counter = (baseArray.count - 1) / 2
+        while counter >= 0 {
+            maxHeapify(counter)
+            counter -= 1
+        }
+    }
+    
+    var heapSortOutput = [Int]()
+    
+    func heapSort() {
+        buildMaxHeap()
+        var counter = baseArray.count - 1
+        while counter >= 0 {
+            baseArray.swapAt(counter, 0)
+            heapSortOutput.append(baseArray.popLast()!)
+            maxHeapify(0)
+            counter -= 1
+        }
+        print(baseArray)
+        print(heapSortOutput)
     }
 }

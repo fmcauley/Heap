@@ -242,5 +242,32 @@ class HeapTests: XCTestCase {
         
         XCTAssertEqual(output, expected)
     }
+    
+    func testThatAHeapCanBuildAMaxHeap() {
+        let input = [1,2,3,4,5,6,7,8,9]
+        let heap = Heap(input)
+        heap.buildMaxHeap()
+        let output = heap.getParent(0)
+        let expected = 9
+        
+        XCTAssertEqual(output, expected)
+    }
+
+    func testThatHeapSortWillWork() {
+        let input = [1,2,3]
+        let heap = Heap(input)
+        heap.heapSort()
+        let output = heap.getParent(0)
+        let expected = 3
+        
+        XCTAssertEqual(output, expected)
+    }
+    
+    func testThatHeapSortWorksWithALargerInputSet() {
+        let input = [4,1,3,2,16,9,10,14,8,7]
+        let heap = Heap(input)
+        heap.heapSort()
+    
+    }
 
 }
